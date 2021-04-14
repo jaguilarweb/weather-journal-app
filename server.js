@@ -67,4 +67,19 @@ app.get('/getWeatherData', (request, response) => {
     response.send(projectData);
 });
 
+/*-----------------------------------------
+  POST Route
+-------------------------------------------*/
 
+app.post('/addWeatherData', addWeatherData);
+
+function addWeatherData(request, response){
+    let data = request.body;
+    let newEntry = {
+        date: data.date,
+        temp: data.temp,
+        content: data.content,
+    }
+    projectData['zone'] = newEntry;
+    response.send(projectData);
+}
