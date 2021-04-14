@@ -32,6 +32,11 @@ const bodyParser = require('body-parser');
 //Here we are configuring express to use body-parser as middle-ware.
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+/*
+How body-parser is deprecated you could also use this way:
+    app.use(express.urlencoded({ extended: true }));
+    app.use(express.json());
+*/
 
 // Cors for cross origin allowance
 const cors = require('cors');
@@ -49,4 +54,17 @@ function listening(){
     console.log("server running...");
     console.log(`running on localhost: ${port}`);
 }
+
+
+// ROUTES
+
+/*---------------------------------
+  GET Route
+----------------------------------*/
+
+app.get('/getWeatherData', (request, response) => {
+    console.log(projectData);
+    response.send(projectData);
+});
+
 
