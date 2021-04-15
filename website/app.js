@@ -27,10 +27,12 @@ function performAction(e) {
   let newCodezip = document.getElementById('zip').value;
   let userEntry = document.getElementById('feelings').value;
   getApiRequest(baseUrl, newCodezip, apiKey)
-  .then(function(data){
+  .then((data) => {
     console.log(data)
     postData('/addWeatherData', {date:newDate, temp:data.main.temp, content:userEntry})
   })
+  .then(updateUI())
+  .catch(error => console.log(error));
 }
 
 /* Build url API
@@ -68,3 +70,17 @@ const postData = async (url = '', data = {}) => {
       console.log("error", error);
   }
 };
+
+//Update de UI with the data retriver
+
+const updateUI = async () => {
+  const request = await fetch('/getWeatherData');
+  try {
+    const allData = await request.json();
+    document.getElementById('date').innerHTML = allData['zone'].date;
+    document.getElementById('temp').innerHTML = allData['zone'].temp;
+    document.getElementById('content').innerHTML = allData['zone'].content;
+  } catch (error) {
+    console.log("error", error);
+  }
+}
