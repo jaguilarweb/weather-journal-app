@@ -40,7 +40,8 @@ https://api.openweathermap.org/data/2.5/weather?zip={zipCode},us&appid={API key}
 (api reference)*/
 
 const getApiRequest = async (url, zip, key) => {
-    const response = await fetch(`${url}${zip},us&appid=${key}`);
+    let codZip = zip || '94040';
+    const response = await fetch(`${url}${codZip},us&appid=${key}`);
   try {
       const data = await response.json();
       console.log(data);
@@ -49,7 +50,6 @@ const getApiRequest = async (url, zip, key) => {
       console.log("error", error);
   }
 };
-
 
 // POST EXAMPLE
 

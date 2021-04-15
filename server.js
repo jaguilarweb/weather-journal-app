@@ -1,4 +1,4 @@
-/* --------------------------------------------------------------
+/* ---------------------------------------------------------------
 TODO
 
 1.- Setup empty JS object to act as endpoint for all routes
@@ -77,7 +77,7 @@ function addWeatherData(request, response){
     let newEntry = {
         date: data.date,
         temp: data.temp,
-        content: data.content,
+        content: data.content || 'Happy',
     }
     projectData['zone'] = newEntry;
     response.send(projectData);
