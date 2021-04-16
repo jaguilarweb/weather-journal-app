@@ -15,9 +15,13 @@ TODO
 const baseUrl = 'https://api.openweathermap.org/data/2.5/weather?zip=';
 const apiKey = '5b3236597fb0158567f3eab77a1a71e9';
 
+// For Fahrenheit use units=imperial and Celsius use units=metric (API references)
+// For this exercise purposes I set it to metric measure
+let units = 'metric'; 
+
 // Create a new date instance dynamically with JS
-let d = new Date();
-let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
+let day = new Date();
+let newDate = (day.getMonth() + 1) + '/'+ day.getDate()+'/'+ day.getFullYear();
 
 document.getElementById('generate').addEventListener('click', performAction);
 
@@ -36,11 +40,11 @@ function performAction(e) {
 
 /* Build url API
 https://api.openweathermap.org/data/2.5/weather?zip={zipCode},us&appid={API key}
-(api reference)*/
+&units={Units of measurement} ==> (Api reference)*/
 
 const getApiRequest = async (url, zip, key) => {
     let codZip = zip || '94040';
-    const response = await fetch(`${url}${codZip},us&appid=${key}`);
+    const response = await fetch(`${url}${codZip},us&appid=${key}&units=${units}`);
   try {
       const data = await response.json();
       return data;
@@ -76,7 +80,7 @@ const updateUI = async () => {
   try {
     const allData = await request.json();
     document.getElementById('date').innerHTML = allData['zone'].date;
-    document.getElementById('temp').innerHTML = allData['zone'].temp;
+    document.getElementById('temp').innerHTML = `${allData['zone'].temp}ºC`;
     document.getElementById('content').innerHTML = allData['zone'].content;
   } catch (error) {
     console.log("error", error);
