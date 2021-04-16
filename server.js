@@ -62,7 +62,6 @@ function listening(){
 ----------------------------------*/
 
 app.get('/getWeatherData', (request, response) => {
-    console.log(projectData);
     response.send(projectData);
 });
 

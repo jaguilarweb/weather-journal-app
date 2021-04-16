@@ -28,10 +28,9 @@ function performAction(e) {
   let userEntry = document.getElementById('feelings').value;
   getApiRequest(baseUrl, newCodezip, apiKey)
   .then((data) => {
-    console.log(data)
     postData('/addWeatherData', {date:newDate, temp:data.main.temp, content:userEntry})
+    updateUI()
   })
-  .then(updateUI())
   .catch(error => console.log(error));
 }
 
@@ -44,7 +43,6 @@ const getApiRequest = async (url, zip, key) => {
     const response = await fetch(`${url}${codZip},us&appid=${key}`);
   try {
       const data = await response.json();
-      console.log(data);
       return data;
   } catch (error) {
       console.log("error", error);
